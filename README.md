@@ -2,10 +2,10 @@
 
 This repo implements a simple multipurpose [Slack](https://slack.com/) slash command server written in Express.js.
 
-Implemented routes so far (mostly for demo purposes):
-`/reqbin`: Request bin to see body of request sent by the slash command. (Use https://requestbin.com for a better presented UI)
-/`echo`: Echoes message sent by user with `/echo [message]`
-`/mentalogue`: The initial goal for this project is to build an internal dashboard for Mentalogue. This repo is a proof of concept that this works (implementation in progress)
+Implemented slash commands so far (mostly for demo purposes):
+- `/reqbin`: Request bin to see body of request sent by the slash command. (Use https://requestbin.com for a better presented UI)
+- `/echo`: Echoes message sent by user with `/echo [message]`
+- `/mentalogue`: The initial goal for this project is to build an internal dashboard for Mentalogue. This repo is a proof of concept that this works (implementation in progress)
 
 ## Credits
 
