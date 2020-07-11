@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "name": "slack-slash-express",
+  "builds": [
+    {
+      "src": "src/app.js",
+      "use": "@now/node"
+    } 
+  ],
+  "routes": [
+    {
+      "src": "(.*)",
+      "dest": "src/app.js"
+    }
+  ],
+  "regions": [
+    "sin1"
+  ]
+}

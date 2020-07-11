@@ -1,0 +1,41 @@
+{
+  "name": "slack-slash-express",
+  "version": "1.0.0",
+  "description": "A simple multipurpose Slack slash command server written in Express.js.",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrickxchong/slack-slash-express.git"
+  },
+  "author": {
+    "name": "Patrick Chong",
+    "email": "patrickxchong@gmail.com",
+    "url": "https://www.patrickxchong.com"
+  },
+  "bugs": {
+    "url": "https://github.com/patrickxchong/slack-slash-express/issues"
+  },
+  "homepage": "https://github.com/patrickxchong/slack-slash-express#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "nodemon": "^2.0.4"
+  },
+  "keywords": [
+    "slack",
+    "integration",
+    "web",
+    "server",
+    "utility",
+    "application"
+  ]
+}
