@@ -47,7 +47,6 @@ app.post('/', async (req, res) => {
   } catch (error) {
     console.error(error);
     res.json({
-      text: 'Error',
       attachments: [createErrorAttachment(error)]
     });
 
