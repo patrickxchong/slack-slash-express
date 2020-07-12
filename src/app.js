@@ -1,24 +1,22 @@
 const Express = require('express')
 const bodyParser = require('body-parser')
-const axios = require('axios')
-const slashCommandFactory = require('./slashCommandFactory')
+
+const { createErrorAttachment } = require("./slackMessageTemplates")
+
+const slashCommandFactory = {
+  "/reqbin": require("./commands/reqbin"),
+  "/echo": require("./commands/echo"),
+  "/mentalogue": require("./commands/mentalogue")
+}
 
 const app = new Express()
+
+// Slack sends data in the form of application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
-async function reqbinHandler(body) {
-  return { text: JSON.stringify(body) }
-}
-async function echoHandler(body) {
-  return { text: `<@${body.user_id}> said ${body.text} in <#${body.channel_id}>` };
-}
-async function practitionerHandler(body) {
-  let res = await axios.get("https://api.mentalogue.my/api/v1/practitioners");
-  return { text: JSON.stringify(res.data.results) };
-}
-
 app.get('/', async (req, res) => {
-  let payload = await practitionerHandler();
+  let commandHandler = slashCommandFactory["/mentalogue"];
+  let payload = await commandHandler();
   // console.log(payload);
   // res.json(payload);
   // res.status(200).end()
@@ -27,27 +25,31 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
   try {
+    if (JSON.stringify(req.body) === '{}') {
+      throw new Error('No body in request.')
+    }
+
     let command = req.body.command;
-    let commandHandler;
-    if (command === "/reqbin") {
-      commandHandler = slashCommandFactory(reqbinHandler)
-    } else if (command === "/echo") {
-      commandHandler = slashCommandFactory(echoHandler)
-    } else if (command === "/mentalogue") {
-      commandHandler = slashCommandFactory(practitionerHandler)
-    } else {
+    let commandHandler = slashCommandFactory[command]
+
+    if (commandHandler === undefined) {
       throw new Error("Invalid slash command sent.");
     }
+
     let result = await commandHandler(req.body);
 
-    console.log(result);
-    res.json(result);
+    // Set default response_type to 'in_channel' for it to be visible to everyone
+    let response = Object.assign({ response_type: "in_channel" }, result)
+
+    console.log(response);
+    res.json(response);
 
   } catch (error) {
     console.error(error);
-    let commandHandler = slashCommandFactory(() => { throw error });
-    let result = await commandHandler({});
-    res.json(result);
+    res.json({
+      text: 'Error',
+      attachments: [createErrorAttachment(error)]
+    });
 
   }
 })
