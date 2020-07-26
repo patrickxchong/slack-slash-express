@@ -21,7 +21,7 @@ async function practitionerHandler(body) {
       "type": "section",
       "text": {
         "type": "mrkdwn",
-        "text": `*${value.full_name}* <https://app.mentalogue.my/profile/p/${value.practitioner_id}>\n${value.about_me}\n`
+        "text": `*${value.full_name}* <https://app.mentalogue.my/profile/p/${value.practitioner_id}>\n${value.description}\n`
       },
     }
     if (value.profile_pic) {
