@@ -27,7 +27,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.17.2",
-    "express": "^4.15.3",
+    "express": "^4.17.3",
     "nodemon": "^2.0.4"
   },
   "keywords": [
